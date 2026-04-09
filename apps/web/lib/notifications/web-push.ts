@@ -56,16 +56,27 @@ export async function sendPushNotification(
 }
 
 export async function sendPushToUser(userId: string, payload: PushPayload) {
-  const subscriptions = await db.query.pushSubscriptions.findMany({
-    where: eq(pushSubscriptions.userId, userId),
+  // Send web push notifications
+  const webPushPromise = (async () => {
+    const subscriptions = await db.query.pushSubscriptions.findMany({
+      where: eq(pushSubscriptions.userId, userId),
+    });
+
+    const results = await Promise.allSettled(
+      subscriptions.map((sub) => sendPushNotification(sub, payload))
+    );
+
+    const failures = results.filter((r) => r.status === "rejected");
+    if (failures.length > 0 && failures.length === results.length) {
+      console.error(`All web push notifications failed for user ${userId}`);
+    }
+  })();
+
+  // Send Expo push notifications (for mobile app)
+  const { sendExpoPushToUser } = await import("./expo-push");
+  const expoPushPromise = sendExpoPushToUser(userId, payload).catch((err) => {
+    console.error(`Expo push failed for user ${userId}:`, err);
   });
 
-  const results = await Promise.allSettled(
-    subscriptions.map((sub) => sendPushNotification(sub, payload))
-  );
-
-  const failures = results.filter((r) => r.status === "rejected");
-  if (failures.length > 0 && failures.length === results.length) {
-    console.error(`All push notifications failed for user ${userId}`);
-  }
+  await Promise.allSettled([webPushPromise, expoPushPromise]);
 }

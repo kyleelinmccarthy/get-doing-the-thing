@@ -111,11 +111,32 @@ export const pushSubscriptions = pgTable("push_subscriptions", {
   createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
 });
 
+export const apiTokens = pgTable("api_tokens", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  tokenHash: text("token_hash").notNull().unique(),
+  expiresAt: timestamp("expires_at", { mode: "date" }).notNull(),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+});
+
+export const expoPushTokens = pgTable("expo_push_tokens", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  token: text("token").notNull().unique(),
+  createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+});
+
 // ─── Relations ───
 
 export const usersRelations = relations(users, ({ many }) => ({
   things: many(things),
   pushSubscriptions: many(pushSubscriptions),
+  apiTokens: many(apiTokens),
+  expoPushTokens: many(expoPushTokens),
 }));
 
 export const thingsRelations = relations(things, ({ one, many }) => ({
@@ -134,4 +155,12 @@ export const responsesRelations = relations(responses, ({ one }) => ({
 
 export const pushSubscriptionsRelations = relations(pushSubscriptions, ({ one }) => ({
   user: one(users, { fields: [pushSubscriptions.userId], references: [users.id] }),
+}));
+
+export const apiTokensRelations = relations(apiTokens, ({ one }) => ({
+  user: one(users, { fields: [apiTokens.userId], references: [users.id] }),
+}));
+
+export const expoPushTokensRelations = relations(expoPushTokens, ({ one }) => ({
+  user: one(users, { fields: [expoPushTokens.userId], references: [users.id] }),
 }));

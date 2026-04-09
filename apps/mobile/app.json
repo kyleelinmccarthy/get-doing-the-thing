@@ -1,0 +1,42 @@
+{
+  "expo": {
+    "name": "Doing The Thing",
+    "slug": "doing-the-thing",
+    "scheme": "doingthething",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#F5F7F6"
+    },
+    "ios": {
+      "bundleIdentifier": "com.doingthething.app",
+      "supportsTablet": false
+    },
+    "android": {
+      "package": "com.doingthething.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#F5F7F6"
+      }
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#96A797"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

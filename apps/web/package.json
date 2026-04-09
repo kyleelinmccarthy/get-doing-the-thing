@@ -17,6 +17,7 @@
     "@doing-the-thing/shared": "*",
     "clsx": "^2.1.0",
     "drizzle-orm": "^0.30.0",
+    "expo-server-sdk": "^6.1.0",
     "next": "^14.2.0",
     "next-auth": "^5.0.0-beta.30",
     "node-cron": "^4.2.1",
@@ -30,6 +31,7 @@
   "devDependencies": {
     "@types/node": "^20.12.0",
     "@types/node-cron": "^3.0.11",
+    "@types/nodemailer": "^8.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
     "@types/web-push": "^3.6.4",
