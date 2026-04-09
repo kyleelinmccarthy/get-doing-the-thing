@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-spring-sage: #96A797;
+  --color-moss: #56624C;
+  --color-eucalyptus: #AEBDB6;
+  --color-charcoal: #3E4444;
+  --color-basalt-blue: #7B8A91;
+
+  --bg-primary: #D8E2DD;
+  --bg-secondary: #EDF1EF;
+  --bg-card: #FFFFFF;
+  --text-primary: #2A2E2E;
+  --text-secondary: #56624C;
+  --text-muted: #7B8A91;
+  --border: #C4CFC9;
+  --accent: #56624C;
+  --accent-hover: #4A5442;
+  --success: #96A797;
+  --muted: #7B8A91;
+  --surface-interactive: #96A797;
+}
+
+[data-theme="dark"] {
+  --bg-primary: #2E3333;
+  --bg-secondary: #353B3B;
+  --bg-card: #3E4444;
+  --text-primary: #E8EDEA;
+  --text-secondary: #AEBDB6;
+  --text-muted: #7B8A91;
+  --border: #4E5555;
+  --accent: #96A797;
+  --accent-hover: #A7B5A8;
+  --success: #96A797;
+  --muted: #7B8A91;
+  --surface-interactive: #56624C;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+}

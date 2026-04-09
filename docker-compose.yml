@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: doing_the_thing
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "3003:3003"
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/doing_the_thing
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3003}
+      EMAIL_SERVER: ${EMAIL_SERVER:-smtp://maildev:1025}
+      EMAIL_FROM: ${EMAIL_FROM:-noreply@getdoingthething.com}
+      NEXT_PUBLIC_VAPID_PUBLIC_KEY: ${NEXT_PUBLIC_VAPID_PUBLIC_KEY}
+      VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY}
+      VAPID_CONTACT: ${VAPID_CONTACT:-mailto:admin@getdoingthething.com}
+    depends_on:
+      db:
+        condition: service_healthy
+    profiles:
+      - prod
+
+  maildev:
+    image: maildev/maildev:2.1.0
+    restart: unless-stopped
+    ports:
+      - "1080:1080"
+      - "1025:1025"
+    profiles:
+      - dev
+
+volumes:
+  pgdata:
