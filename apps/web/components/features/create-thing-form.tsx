@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -13,6 +14,7 @@ import {
 
 export function CreateThingForm() {
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const router = useRouter();
 
   return (
     <Card>
@@ -78,6 +80,14 @@ export function CreateThingForm() {
 
         <Button type="submit" variant="neutral" fullWidth>
           Add thing
+        </Button>
+        <Button
+          type="button"
+          variant="ghost"
+          fullWidth
+          onClick={() => router.back()}
+        >
+          Nevermind
         </Button>
       </form>
     </Card>

@@ -3,39 +3,67 @@
 @tailwind utilities;
 
 :root {
+  /* ── Olive Crate Palette ── */
   --color-spring-sage: #96A797;
   --color-moss: #56624C;
   --color-eucalyptus: #AEBDB6;
   --color-charcoal: #3E4444;
   --color-basalt-blue: #7B8A91;
 
-  --bg-primary: #D8E2DD;
-  --bg-secondary: #EDF1EF;
+  /* ── Light Mode — eucalyptus wash ── */
+  --bg-primary: #F5F7F6;                     /* very light eucalyptus */
+  --bg-secondary: #FAFBFA;                   /* near-white */
   --bg-card: #FFFFFF;
-  --text-primary: #2A2E2E;
-  --text-secondary: #56624C;
-  --text-muted: #7B8A91;
-  --border: #C4CFC9;
-  --accent: #56624C;
-  --accent-hover: #4A5442;
-  --success: #96A797;
-  --muted: #7B8A91;
-  --surface-interactive: #96A797;
+  --text-primary: #3E4444;                    /* charcoal */
+  --text-secondary: #56624C;                  /* moss */
+  --text-muted: #7B8A91;                      /* basalt blue */
+  --border: #7B8A91;                          /* basalt blue border */
+  --accent: #AEBDB6;                          /* eucalyptus — primary action */
+  --accent-hover: #9DB0A8;                    /* eucalyptus darkened */
+  --success: #B6C9B8;                         /* light spring sage */
+  --muted: #A8B5BC;                           /* light basalt blue */
+  --btn-text: #2A2E2E;                        /* dark text on light buttons */
+  --surface-interactive: #96A797;             /* spring sage */
+  --header-bg: #D5DDD8;                        /* eucalyptus mid-tone */
+  --header-border: #7B8A91;                   /* basalt blue */
+  --card-accent: #7B8A91;                     /* basalt blue subtle accent */
+
+  /* ── Button colors — lighter fills, black text ── */
+  --btn-did: #B6C9B8;                         /* light sage — completed */
+  --btn-did-hover: #A5BAA7;
+  --btn-doing: #C2D4C4;                       /* lighter sage — in progress */
+  --btn-doing-hover: #B1C5B3;
+  --btn-cant: #A8B5BC;                        /* light basalt blue — defer */
+  --btn-cant-hover: #97A6AE;
 }
 
 [data-theme="dark"] {
-  --bg-primary: #2E3333;
-  --bg-secondary: #353B3B;
-  --bg-card: #3E4444;
-  --text-primary: #E8EDEA;
-  --text-secondary: #AEBDB6;
-  --text-muted: #7B8A91;
-  --border: #4E5555;
-  --accent: #96A797;
-  --accent-hover: #A7B5A8;
-  --success: #96A797;
-  --muted: #7B8A91;
-  --surface-interactive: #56624C;
+  /* ── Dark Mode — dark charcoal gray ── */
+  --bg-primary: #222222;                      /* dark charcoal gray */
+  --bg-secondary: #2A2A2A;                    /* slightly lighter gray */
+  --bg-card: #313131;                         /* card surface gray */
+  --text-primary: #E2E7E4;                    /* warm off-white */
+  --text-secondary: #AEBDB6;                  /* eucalyptus */
+  --text-muted: #95A1A7;                      /* basalt blue lightened for readability */
+  --border: #56624C;                          /* moss border */
+  --accent: #465440;                          /* darkened moss — primary action in dark */
+  --accent-hover: #536348;                    /* darkened moss hover */
+  --success: #7A8E7B;                         /* darkened spring sage */
+  --muted: #636F75;                           /* darkened basalt blue */
+  --surface-interactive: #56624C;             /* moss */
+  --header-bg: #1A1A1A;                        /* near-black nav bar */
+  --header-border: #56624C;                   /* moss */
+  --card-accent: #56624C;                     /* moss accent */
+
+  --btn-text: #FFFFFF;                          /* white text on dark buttons */
+
+  /* ── Button colors — darker/moodier versions (dark) ── */
+  --btn-did: #7A8E7B;                         /* darkened spring sage */
+  --btn-did-hover: #8A9E8B;
+  --btn-doing: #465440;                       /* darkened moss */
+  --btn-doing-hover: #536348;
+  --btn-cant: #636F75;                        /* darkened basalt blue */
+  --btn-cant-hover: #727E84;
 }
 
 body {
@@ -47,5 +75,9 @@ body {
 @layer base {
   * {
     border-color: var(--border);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif), Georgia, serif;
   }
 }

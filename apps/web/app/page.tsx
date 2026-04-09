@@ -20,7 +20,7 @@ export default async function Home() {
         </p>
         <Link
           href="/signin"
-          className="mt-8 inline-flex w-full items-center justify-center rounded-btn px-6 py-4 text-base font-medium text-white transition-colors duration-hover"
+          className="mt-8 inline-flex w-full items-center justify-center rounded-btn px-6 py-4 text-base font-medium text-[var(--btn-text)] transition-colors duration-hover"
           style={{ backgroundColor: "var(--accent)" }}
         >
           Sign in

@@ -98,43 +98,38 @@ export function NudgeCard({
 
   return (
     <Card>
-      <div className="text-center space-y-6">
-        <div>
+      <div className="text-center space-y-8">
+        <div className="space-y-2 py-4">
           <p
-            className="text-2xl font-medium"
-            style={{ color: "var(--text-primary)" }}
+            className="text-sm uppercase tracking-widest"
+            style={{ color: "var(--text-muted)" }}
           >
             Do the thing.
           </p>
-          {thingLabel !== "The Thing" && (
-            <p
-              className="mt-1 text-base"
-              style={{ color: "var(--text-muted)" }}
-            >
-              {thingLabel}
-            </p>
-          )}
+          <p
+            className="text-3xl font-bold font-serif break-words"
+            style={{ color: "var(--text-primary)" }}
+          >
+            {thingLabel}
+          </p>
         </div>
         <div className="space-y-3">
-          <Button
-            variant="success"
-            fullWidth
+          <button
+            className="w-full rounded-btn px-6 py-4 text-base font-medium text-[var(--btn-text)] transition-all duration-150 bg-[var(--btn-did)] hover:bg-[var(--btn-did-hover)] disabled:opacity-50"
             onClick={() => handleResponse(ResponseType.COMPLETED)}
             disabled={isPending}
           >
             Did the thing
-          </Button>
-          <Button
-            variant="neutral"
-            fullWidth
+          </button>
+          <button
+            className="w-full rounded-btn px-6 py-4 text-base font-medium text-[var(--btn-text)] transition-all duration-150 bg-[var(--btn-doing)] hover:bg-[var(--btn-doing-hover)] disabled:opacity-50"
             onClick={() => handleResponse(ResponseType.IN_PROGRESS)}
             disabled={isPending}
           >
             Doing the thing
-          </Button>
-          <Button
-            variant="muted"
-            fullWidth
+          </button>
+          <button
+            className="w-full rounded-btn px-6 py-4 text-base font-medium text-[var(--btn-text)] transition-all duration-150 bg-[var(--btn-cant)] hover:bg-[var(--btn-cant-hover)] disabled:opacity-50"
             onClick={() => {
               if (deferralCount + 1 >= deferralThreshold) {
                 handleResponse(ResponseType.DEFERRED);
@@ -145,7 +140,7 @@ export function NudgeCard({
             disabled={isPending}
           >
             Can't right now
-          </Button>
+          </button>
         </div>
       </div>
     </Card>

@@ -12,11 +12,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantStyles: Record<ButtonVariant, string> = {
   success:
-    "bg-[var(--success)] text-white hover:brightness-110",
+    "bg-[var(--success)] text-[var(--btn-text)] hover:brightness-95",
   neutral:
-    "bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)]",
+    "bg-[var(--accent)] text-[var(--btn-text)] hover:bg-[var(--accent-hover)]",
   muted:
-    "bg-transparent text-[var(--text-muted)] border border-[var(--border)] hover:bg-[var(--bg-secondary)]",
+    "bg-[var(--muted)] text-[var(--btn-text)] hover:brightness-95",
   ghost:
     "bg-transparent text-[var(--text-secondary)] hover:bg-[var(--bg-secondary)]",
   danger:

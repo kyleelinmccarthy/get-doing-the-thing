@@ -10,7 +10,7 @@ export function Card({ className, children, ...props }: CardProps) {
     <div
       className={cn(
         "rounded-card bg-[var(--bg-card)] p-6 shadow-sm",
-        "border border-[var(--border)]",
+        "border border-[var(--border)] border-l-[3px] border-l-[var(--card-accent)]",
         "transition-all duration-state",
         className
       )}

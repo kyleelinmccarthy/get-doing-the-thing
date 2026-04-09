@@ -1,11 +1,17 @@
 import type { Metadata, Viewport } from "next";
-import { DM_Sans } from "next/font/google";
+import { Inria_Serif, Onest } from "next/font/google";
 import { ServiceWorkerRegister } from "@/components/features/sw-register";
 import "./globals.css";
 
-const dmSans = DM_Sans({
+const inriaSerif = Inria_Serif({
   subsets: ["latin"],
-  variable: "--font-dm-sans",
+  weight: ["300", "400", "700"],
+  variable: "--font-serif",
+});
+
+const onest = Onest({
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={dmSans.variable}>
+    <html lang="en" className={`${inriaSerif.variable} ${onest.variable}`}>
       <body className="font-sans antialiased">
         <ServiceWorkerRegister />
         {children}

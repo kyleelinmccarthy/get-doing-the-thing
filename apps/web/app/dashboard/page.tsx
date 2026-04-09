@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { getThings } from "@/lib/actions/things";
-import { getCurrentDeferralCount } from "@/lib/actions/responses";
+import { getCurrentDeferralCount, getRecentCompletions } from "@/lib/actions/responses";
 import { ThingList } from "@/components/features/thing-list";
+import { DoneThings } from "@/components/features/done-things";
 import { NotificationPrompt } from "@/components/features/notification-prompt";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -26,7 +27,7 @@ export default async function DashboardPage() {
         </p>
         <Link href="/dashboard/things/new" className="mt-6 block">
           <Button variant="neutral" fullWidth>
-            Add a thing
+            + Add a thing
           </Button>
         </Link>
       </Card>
@@ -38,16 +39,25 @@ export default async function DashboardPage() {
     deferralCounts[thing.id] = await getCurrentDeferralCount(thing.id);
   }
 
+  const completions = await getRecentCompletions();
+
   return (
     <div className="space-y-6">
       <NotificationPrompt />
-      <ThingList things={things} deferralCounts={deferralCounts} />
-      <div className="text-center">
-        <Link href="/dashboard/things/new">
-          <Button variant="ghost" className="text-sm">
-            Add another thing
+      <div className="max-w-lg mx-auto">
+        <Link href="/dashboard/things/new" className="block">
+          <Button variant="neutral" fullWidth>
+            + Add a thing
           </Button>
         </Link>
+      </div>
+      <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex-1 max-w-lg mx-auto lg:mx-0 space-y-4">
+          <ThingList things={things} deferralCounts={deferralCounts} />
+        </div>
+        <div className="w-full lg:w-72 lg:shrink-0">
+          <DoneThings entries={completions} />
+        </div>
       </div>
     </div>
   );

@@ -2,9 +2,15 @@ import NextAuth from "next-auth";
 import EmailProvider from "next-auth/providers/email";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { db } from "./db";
+import { users, accounts, sessions, verificationTokens } from "./db/schema";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: DrizzleAdapter(db),
+  adapter: DrizzleAdapter(db, {
+    usersTable: users as any,
+    accountsTable: accounts as any,
+    sessionsTable: sessions as any,
+    verificationTokensTable: verificationTokens as any,
+  }),
   providers: [
     EmailProvider({
       server: process.env.EMAIL_SERVER,

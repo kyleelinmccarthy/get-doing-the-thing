@@ -47,7 +47,7 @@ export function ResponseHistory({ responses }: ResponseHistoryProps) {
           <span className="text-sm flex-1" style={{ color: "var(--text-primary)" }}>
             {typeLabels[response.type] ?? response.type}
           </span>
-          <span className="text-xs" style={{ color: "var(--text-muted)" }}>
+          <span className="text-xs whitespace-nowrap" style={{ color: "var(--text-muted)" }}>
             {new Date(response.respondedAt).toLocaleDateString(undefined, {
               month: "short",
               day: "numeric",

@@ -117,6 +117,42 @@ export async function getResponseHistory(thingId: string, limit = 20) {
   });
 }
 
+export async function getRecentCompletions(limit = 30) {
+  const session = await requireAuth();
+
+  const userThings = await db.query.things.findMany({
+    where: eq(things.userId, session.user.id),
+    columns: { id: true, label: true },
+  });
+
+  if (userThings.length === 0) return [];
+
+  const thingMap = new Map(userThings.map((t) => [t.id, t.label]));
+  const thingIds = userThings.map((t) => t.id);
+
+  const { inArray } = await import("drizzle-orm");
+
+  const completions = await db.query.responses.findMany({
+    where: and(
+      inArray(responses.thingId, thingIds),
+      inArray(responses.type, [
+        ResponseType.COMPLETED,
+        ResponseType.IN_PROGRESS,
+        ResponseType.CHECKIN_COMPLETED,
+      ])
+    ),
+    orderBy: [desc(responses.respondedAt)],
+    limit,
+  });
+
+  return completions.map((r) => ({
+    id: r.id,
+    thingLabel: thingMap.get(r.thingId) ?? "Unknown",
+    type: r.type,
+    respondedAt: r.respondedAt.toISOString(),
+  }));
+}
+
 export async function getCurrentDeferralCount(thingId: string): Promise<number> {
   const lastResponse = await getLastResponse(thingId);
 

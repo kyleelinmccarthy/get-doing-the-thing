@@ -7,6 +7,10 @@ const config: Config = {
   ],
   darkMode: ["class", '[data-theme="dark"]'],
   theme: {
+    fontFamily: {
+      sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+      serif: ["var(--font-serif)", "Georgia", "serif"],
+    },
     extend: {
       colors: {
         "spring-sage": "#96A797",
